@@ -11,8 +11,9 @@ contract Cryptokitties is ERC721Token {
         uint256 geneB;
     }
 
-    mapping(uint256 => Kitty) private kitties;
+    mapping(uint256 => Kitty) public kitties;
     uint256 public nextId;
+    address public admin;
 
     constructor(string memory _tokenURIBase) ERC721Token(_tokenURIBase) {
         admin = msg.sender;
@@ -54,12 +55,5 @@ contract Cryptokitties is ERC721Token {
             uint256(
                 keccak256(abi.encodePacked(block.timestamp, block.difficulty))
             ) % max;
-    }
-
-    function _mint(uint256 _tokenId, address owner) internal {
-        require(idToOwner[_tokenId] == address(0), "This token already exists");
-        idToOwner[_tokenId] = owner;
-        ownerToTokenCount[owner] += 1;
-        emit Transfer(address(0), owner, _tokenId);
     }
 }

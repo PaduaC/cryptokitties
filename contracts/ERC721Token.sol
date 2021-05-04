@@ -45,24 +45,19 @@ contract ERC721Token is ERC721Interface {
     mapping(uint256 => address) public idToApproved;
     mapping(address => mapping(address => bool)) private ownerToOperators;
     bytes4 internal constant MAGIC_ON_ERC721_RECEIVED = 0x150b7a02;
-    address public admin;
+
     uint256 public nextTokenId;
-    string public name;
-    string public symbol;
     string public tokenURIBase;
 
     constructor(string memory _tokenURIBase) {
         tokenURIBase = _tokenURIBase;
     }
 
-    function _mint(address _owner, uint256 _tokenId) internal {
-        require(
-            idToOwner[_tokenId] == address(0),
-            "This token already exist.."
-        );
-        idToOwner[_tokenId] = _owner;
-        ownerToTokenCount[_owner] += 1;
-        emit Transfer(address(0), _owner, _tokenId);
+    function _mint(uint256 _tokenId, address owner) internal {
+        require(idToOwner[_tokenId] == address(0), "This token already exists");
+        idToOwner[_tokenId] = owner;
+        ownerToTokenCount[owner] += 1;
+        emit Transfer(address(0), owner, _tokenId);
     }
 
     function tokenURI(uint256 _tokenId) external view returns (string memory) {
