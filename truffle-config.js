@@ -1,4 +1,4 @@
-//const path = require("path");
+const path = require("path");
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -80,7 +80,7 @@ module.exports = {
     // timeout: 100000
   },
 
-  // contracts_build_directory: path.join(__dirname, "app/src/contracts"),
+  contracts_build_directory: path.join(__dirname, "app/src/contracts"),
 
   // Configure your compilers
   compilers: {
